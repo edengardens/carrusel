@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .carousel-slide {
+            display: none;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+        }
+
+        .carousel-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            text-align: left;
+        }
+
+        .carousel-content h3 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .carousel-content h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            z-index: 1;
+            transition: background-color 0.3s;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .dot-container {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .active-dot, .dot:hover {
+            background-color: #333;
+        }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <!-- Slides -->
+        <div class="carousel-slide fade">
+            <img src="https://via.placeholder.com/800x400" alt="Slide 1">
+            <div class="carousel-content">
+                <h3>Breaking Creative</h3>
+                <h2>WMCCANN BRAZIL LAUNCHES CAMPAIGN CELEBRATING 100 YEARS OF CHEVROLET IN BRAZIL</h2>
+            </div>
+        </div>
+
+        <div class="carousel-slide fade">
+            <img src="https://via.placeholder.com/800x400" alt="Slide 2">
+            <div class="carousel-content">
+                <h3>Latest News</h3>
+                <h2>NEW PRODUCT LAUNCH EXCEEDS EXPECTATIONS</h2>
+            </div>
+        </div>
+
+        <div class="carousel-slide fade">
+            <img src="https://via.placeholder.com/800x400" alt="Slide 3">
+            <div class="carousel-content">
+                <h3>Company Update</h3>
+                <h2>QUARTERLY RESULTS SHOW STRONG PERFORMANCE</h2>
+            </div>
+        </div>
+
+        <!-- Navigation arrows -->
+        <div class="prev">&#10094;</div>
+        <div class="next">&#10095;</div>
+    </div>
+
+    <!-- Dots/circles -->
+    <div class="dot-container">
+        <span class="dot" onclick="setCurrentSlide(0)"></span>
+        <span class="dot" onclick="setCurrentSlide(1)"></span>
+        <span class="dot" onclick="setCurrentSlide(2)"></span>
+    </div>
+
+    <script>
+        // Carousel functionality
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("carousel-slide");
+        const dots = document.getElementsByClassName("dot");
+        
+        // Initialize
+        showSlides();
+        
+        // Previous and Next controls
+        document.querySelector('.prev').addEventListener('click', function() {
+            changeSlide(-1);
+        });
+        
+        document.querySelector('.next').addEventListener('click', function() {
+            changeSlide(1);
+        });
+        
+        // Change slide by n
+        function changeSlide(n) {
+            slideIndex += n;
+            if (slideIndex >= slides.length) {
+                slideIndex = 0;
+            }
+            if (slideIndex < 0) {
+                slideIndex = slides.length - 1;
+            }
+            showSlides();
+        }
+        
+        // Set current slide directly
+        function setCurrentSlide(n) {
+            slideIndex = n;
+            showSlides();
+        }
+        
+        // Show the current slide
+        function showSlides() {
+            // Hide all slides
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                dots[i].classList.remove("active-dot");
+            }
+            
+            // Show the current slide
+            slides[slideIndex].style.display = "block";
+            dots[slideIndex].classList.add("active-dot");
+        }
+        
+        // Auto-advance slides every 5 seconds
+        setInterval(function() {
+            changeSlide(1);
+        }, 5000);
+    </script>
+</body>
+</html>
